@@ -115,47 +115,48 @@ bindsym $mod+o scratchpad show
 workspace_auto_back_and_forth yes
 
 # Name the workspaces
-set $tag_hat "1: ha<b>t</b>"
-set $tag_hen "2: he<b>n</b>"
-set $tag_ham "3: ha<b>m</b>"
-set $tag_hair "4: hai<b>r</b>"
-set $tag_hill "5: hi<b>ll</b>"
-set $tag_shoe "6: <b>sh</b>oe"
-set $tag_hook "7: hoo<b>k</b>"
-set $tag_hoof "8: hoo<b>f</b>"
-set $tag_hoop "9: hoo<b>p</b>"
+# spiffy fonts from aur's font-awesome
+set $workspace_web "1: Web  "
+set $workspace_terminals "2: Terminals "
+set $workspace_pycharm "3: Pycharm "
+set $workspace_spacemacs "4: Spacemacs "
+set $workspace_git "5: "
+set $workspace_testing "6: Testing "
+set $workspace_playing "7: Playing "
+set $workspace_away "8: Away "
+set $workspace_music "9: Music "
 
 # switch to workspace
-bindsym $mod+1 workspace $tag_hat
-bindsym $mod+2 workspace $tag_hen
-bindsym $mod+3 workspace $tag_ham
-bindsym $mod+4 workspace $tag_hair
-bindsym $mod+5 workspace $tag_hill
-bindsym $mod+6 workspace $tag_shoe
-bindsym $mod+7 workspace $tag_hook
-bindsym $mod+8 workspace $tag_hoof
-bindsym $mod+9 workspace $tag_hoop
+bindsym $mod+1 workspace $workspace_web
+bindsym $mod+2 workspace $workspace_terminals
+bindsym $mod+3 workspace $workspace_pycharm
+bindsym $mod+4 workspace $workspace_spacemacs
+bindsym $mod+5 workspace $workspace_git
+bindsym $mod+6 workspace $workspace_testing
+bindsym $mod+7 workspace $workspace_playing
+bindsym $mod+8 workspace $workspace_away
+bindsym $mod+9 workspace $workspace_music
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $tag_hat
-bindsym $mod+Shift+2 move container to workspace $tag_hen
-bindsym $mod+Shift+3 move container to workspace $tag_ham
-bindsym $mod+Shift+4 move container to workspace $tag_hair
-bindsym $mod+Shift+5 move container to workspace $tag_hill
-bindsym $mod+Shift+6 move container to workspace $tag_shoe
-bindsym $mod+Shift+7 move container to workspace $tag_hook
-bindsym $mod+Shift+8 move container to workspace $tag_hoof
-bindsym $mod+Shift+9 move container to workspace $tag_hoop
+bindsym $mod+Shift+1 move container to workspace $workspace_web
+bindsym $mod+Shift+2 move container to workspace $workspace_terminals
+bindsym $mod+Shift+3 move container to workspace $workspace_pycharm
+bindsym $mod+Shift+4 move container to workspace $workspace_spacemacs
+bindsym $mod+Shift+5 move container to workspace $workspace_git
+bindsym $mod+Shift+6 move container to workspace $workspace_testing
+bindsym $mod+Shift+7 move container to workspace $workspace_playing
+bindsym $mod+Shift+8 move container to workspace $workspace_away
+bindsym $mod+Shift+9 move container to workspace $workspace_music
 
-workspace $tag_hat output $LAPTOP_SCREEN 
-workspace $tag_hen output $LAPTOP_SCREEN
-workspace $tag_ham output $LAPTOP_SCREEN
-workspace $tag_hair output $LAPTOP_SCREEN
-workspace $tag_hill output $LAPTOP_SCREEN
-workspace $tag_shoe output $LAPTOP_SCREEN
-workspace $tag_hook output $LAPTOP_SCREEN
-workspace $tag_hoof output $LAPTOP_SCREEN
-workspace $tag_hoop output $LAPTOP_SCREEN
+workspace $workspace_web output $LAPTOP_SCREEN 
+workspace $workspace_terminals output $LAPTOP_SCREEN
+workspace $workspace_pycharm output $LAPTOP_SCREEN
+workspace $workspace_spacemacs output $LAPTOP_SCREEN
+workspace $workspace_git output $LAPTOP_SCREEN
+workspace $workspace_testing output $LAPTOP_SCREEN
+workspace $workspace_playing output $LAPTOP_SCREEN
+workspace $workspace_away output $LAPTOP_SCREEN
+workspace $workspace_music output $LAPTOP_SCREEN
 
 
 bindsym $mod+Shift+r restart
@@ -239,4 +240,13 @@ exec --no-startup-id ~/.i3/autostart
 
 # Take a screenshot upon pressing $mod+x (select an area)
 bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+
+assign [class="Google-chrome"] $workspace_web
+assign [class="Emacs"] $workspace_spacemacs
+assign [class="jetbrains-pycharm"] $workspace_pycharm
+
+exec google-chrome-stable
+exec emacs
+
+
 # vim:filetype=i3
