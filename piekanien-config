@@ -13,7 +13,8 @@
 # # To switch back:
 # # xrandr --output VGA1 --right-of LVDS1 --auto
 
-font pango:DejaVu Sans Mono 10
+# font pango:DejaVu Sans Mono 10
+font pango:System San Francisco Display 11
 # font pango:monospace 8
 
 # eDP1  laptop
@@ -50,7 +51,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+space exec dmenu_run
+# bindsym $mod+space exec dmenu_run
+bindsym $mod+space exec rofi -show run 
 
 # aliases for movement
 set $up k
@@ -116,7 +118,7 @@ workspace_auto_back_and_forth yes
 
 # Name the workspaces
 # spiffy fonts from aur's font-awesome
-set $workspace_web "1: Web  "
+set $workspace_web "1: Web "
 set $workspace_terminals "2: Terminals "
 set $workspace_pycharm "3: Pycharm "
 set $workspace_spacemacs "4: Spacemacs "
@@ -166,11 +168,11 @@ bindsym $mod+Tab workspace next
 
 set $apps "Start apps: google-chrome emacs vim gitkraken pycharm" 
 mode $apps {
-        bindsym $mod+g exec google-chrome
+        bindsym $mod+g exec google-chrome-stable
         bindsym $mod+e exec emacs
-        bindsym $mod+v exec vim
+        bindsym $mod+v exec nvim
         bindsym $mod+k exec gitkraken 
-        bindsym $mod+p exec pycharm.sh
+        bindsym $mod+j exec jetbrains-toolbox
 
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
@@ -213,7 +215,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-        status_command i3status 
+        status_command i3status -c ~/.config/i3/status
         position top
         modifier $mod
 }
