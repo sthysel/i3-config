@@ -1,11 +1,13 @@
 general {
   colors = true
   interval = 5
+  # output_format = "i3bar"
 }
 
 
 order += "disk /"
 order += "load"
+order += "cpu_temperature 0"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "battery 0"
@@ -14,15 +16,15 @@ order += "volume master"
 
 
 battery 0 {
+  format = "%status %percentage %remaining %emptytime"
   last_full_capacity = true
   hide_seconds = true
   integer_battery_capacity = true
   threshold_type = time
-  format = "%status %percentage %remaining %emptytime"
-  status_chr = "⚡ CHR"
+  status_chr = "⚡"
   status_bat = "BAT"
-  status_unk = "? UNK"
-  status_full = "☻ FULL"
+  status_unk = "?"
+  status_full = ""
   path = "/sys/class/power_supply/BAT%d/uevent"
   low_threshold = 10
 }
@@ -51,7 +53,7 @@ volume master {
 }
 
 wireless _first_ {
-        format_up = " %quality@%essid %ip"
+        format_up = " %quality@%essid (%bitrate / %frequency) %ip "
         format_down = ""
 }
 
@@ -61,9 +63,6 @@ ethernet _first_ {
         format_down = ""
 }
 
-battery 0 {
-        format = "%status %percentage %remaining"
-}
 
 tztime local {
         format = "%Y-%m-%d %H:%M:%S"
@@ -71,5 +70,10 @@ tztime local {
 
 disk "/" {
         format = "%avail"
+}
+
+cpu_temperature 0 {
+        format = "%degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp2_input"
 }
 

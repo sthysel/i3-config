@@ -243,6 +243,7 @@ exec --no-startup-id ~/.i3/autostart
 # Take a screenshot upon pressing $mod+x (select an area)
 bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
 
+# workspace setup
 assign [class="Google-chrome"] $workspace_web
 assign [class="Emacs"] $workspace_spacemacs
 assign [class="jetbrains-pycharm"] $workspace_pycharm
