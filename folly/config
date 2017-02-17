@@ -3,9 +3,8 @@
 
 set $mod Mod4
 
-exec --no-startup-id unity-settings-daemon
+exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
 exec --no-startup-id insync start
 exec --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-keyring-daemon
@@ -28,13 +27,14 @@ bindsym Control+$mod+l exec i3lock -d -c 111111
 bindsym Control+Mod1+s exec sleep 5 && xset dpms force standby
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+space exec dmenu_run
+bindsym $mod+space exec rofi -show run
 
 # change focus
 bindsym $mod+h focus left
@@ -76,40 +76,38 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # Name the workspaces
-set $tag_hat "1 hat"
-set $tag_hen "2 hen"
-set $tag_ham "3 ham"
-set $tag_hair "4 hair"
-set $tag_hill "5 hill"
-set $tag_shoe "6 shoe"
-set $tag_hook "7 hook"
-set $tag_hoof "8 hoof"
-set $tag_hoop "9 hoop"
-set $tag_dice "10 dice"
+# spiffy fonts from aur's font-awesome
+set $workspace_web "1: Web "
+set $workspace_terminals "2: Terminals "
+set $workspace_pycharm "3: Pycharm "
+set $workspace_spacemacs "4: Spacemacs "
+set $workspace_git "5: "
+set $workspace_testing "6: Testing "
+set $workspace_playing "7: Playing "
+set $workspace_away "8: Away "
+set $workspace_music "9: Music "
 
 # switch to workspace
-bindsym $mod+1 workspace $tag_hat
-bindsym $mod+2 workspace $tag_hen
-bindsym $mod+3 workspace $tag_ham
-bindsym $mod+4 workspace $tag_hair
-bindsym $mod+5 workspace $tag_hill
-bindsym $mod+6 workspace $tag_shoe
-bindsym $mod+7 workspace $tag_hook
-bindsym $mod+8 workspace $tag_hoof
-bindsym $mod+9 workspace $tag_hoop
-bindsym $mod+0 workspace $tag_dice
+bindsym $mod+1 workspace $workspace_web
+bindsym $mod+2 workspace $workspace_terminals
+bindsym $mod+3 workspace $workspace_pycharm
+bindsym $mod+4 workspace $workspace_spacemacs
+bindsym $mod+5 workspace $workspace_git
+bindsym $mod+6 workspace $workspace_testing
+bindsym $mod+7 workspace $workspace_playing
+bindsym $mod+8 workspace $workspace_away
+bindsym $mod+9 workspace $workspace_music
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $tag_hat
-bindsym $mod+Shift+2 move container to workspace $tag_hen
-bindsym $mod+Shift+3 move container to workspace $tag_ham
-bindsym $mod+Shift+4 move container to workspace $tag_hair
-bindsym $mod+Shift+5 move container to workspace $tag_hill
-bindsym $mod+Shift+6 move container to workspace $tag_shoe
-bindsym $mod+Shift+7 move container to workspace $tag_hook
-bindsym $mod+Shift+8 move container to workspace $tag_hoof
-bindsym $mod+Shift+9 move container to workspace $tag_hoop
-bindsym $mod+Shift+0 move container to workspace $tag_dice
+bindsym $mod+Shift+1 move container to workspace $workspace_web
+bindsym $mod+Shift+2 move container to workspace $workspace_terminals
+bindsym $mod+Shift+3 move container to workspace $workspace_pycharm
+bindsym $mod+Shift+4 move container to workspace $workspace_spacemacs
+bindsym $mod+Shift+5 move container to workspace $workspace_git
+bindsym $mod+Shift+6 move container to workspace $workspace_testing
+bindsym $mod+Shift+7 move container to workspace $workspace_playing
+bindsym $mod+Shift+8 move container to workspace $workspace_away
+bindsym $mod+Shift+9 move container to workspace $workspace_music
 
 
 # reload the configuration file
@@ -148,7 +146,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status -c ~/.i3/status
+        status_command i3status -c ~/.config/i3/status
         position top
         # mode hide
         modifier $mod
@@ -156,5 +154,14 @@ bar {
 
 # start the session
 exec --no-startup-id ~/.i3/autostart
+
+# workspace setup
+assign [class="Google-chrome"] $workspace_web
+assign [class="Emacs"] $workspace_spacemacs
+assign [class="jetbrains-pycharm"] $workspace_pycharm
+
+exec google-chrome-stable
+exec emacs
+
 
 # vim:filetype=i3
