@@ -13,9 +13,7 @@
 # # To switch back:
 # # xrandr --output VGA1 --right-of LVDS1 --auto
 
-# font pango:DejaVu Sans Mono 10
-font pango:System San Francisco Display 11
-# font pango:monospace 8
+font pango:DejaVu Sans Mono, FontAwesome 12 
 
 # eDP1  laptop
 set $LAPTOP_SCREEN eDP-1
@@ -166,12 +164,12 @@ bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exit
 bindsym $mod+Tab workspace next
 
-set $apps "Start apps: google-chrome emacs vim gitkraken pycharm" 
+set $apps "Start apps: (c)hrome (e)macs (v)im (g)itkraken (j)etbrains" 
 mode $apps {
-        bindsym $mod+g exec google-chrome-stable
+        bindsym $mod+c exec google-chrome-stable
         bindsym $mod+e exec emacs
         bindsym $mod+v exec nvim
-        bindsym $mod+k exec gitkraken 
+        bindsym $mod+g exec gitkraken 
         bindsym $mod+j exec jetbrains-toolbox
 
         # back to normal: Enter or Escape
@@ -234,11 +232,6 @@ bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
 
-# start the session
-exec --no-startup-id ~/.i3/autostart
-
-# Simulate ctrl+v upon pressing $mod+x
-# bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+v
 
 # Take a screenshot upon pressing $mod+x (select an area)
 bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
