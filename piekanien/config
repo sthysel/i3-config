@@ -38,6 +38,7 @@ exec --no-startup-id xset dpms 300 600 900
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+bindsym $mod+z move workspace to output right
 # lock screen
 bindsym Control+$mod+l exec i3lock -d -c 111111
 bindsym Control+Mod1+s exec sleep 5 && xset dpms force standby
