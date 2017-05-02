@@ -1,8 +1,11 @@
 # i3 config
 
-![](pics/bar.png)
+![](pics/shot.png)
 
 This repo contains several i3 Window manager configs.
+
+
+![](pics/bar.png)
 
 ## Install
 
