@@ -12,6 +12,11 @@
 # #
 # # To switch back:
 # # xrandr --output VGA1 --right-of LVDS1 --auto
+#
+
+# background
+# exec --no-startup-id xsetroot -solid "#002244"
+# exec --no-startup-id feh --bg-scale /path/to/image
 
 font pango:DejaVu Sans Mono, FontAwesome 12 
 
@@ -20,12 +25,13 @@ set $LAPTOP_SCREEN eDP-1
 
 set $mod Mod4
 
+exec --no-startup-id compton -b
 exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id gnome-power-manager
+exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id insync start
-exec --no-startup-id gnome-power-manager
-exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id udisks-glue
 
 exec --no-startup-id volumeicon
@@ -44,7 +50,9 @@ bindsym Control+$mod+l exec i3lock -d -c 111111
 bindsym Control+Mod1+s exec sleep 5 && xset dpms force standby
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal
+bindsym $mod+u exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -149,16 +157,20 @@ bindsym $mod+Shift+7 move container to workspace $workspace_playing
 bindsym $mod+Shift+8 move container to workspace $workspace_away
 bindsym $mod+Shift+9 move container to workspace $workspace_music
 
-workspace $workspace_web output $LAPTOP_SCREEN 
-workspace $workspace_terminals output $LAPTOP_SCREEN
-workspace $workspace_pycharm output $LAPTOP_SCREEN
-workspace $workspace_spacemacs output $LAPTOP_SCREEN
-workspace $workspace_git output $LAPTOP_SCREEN
-workspace $workspace_testing output $LAPTOP_SCREEN
-workspace $workspace_playing output $LAPTOP_SCREEN
-workspace $workspace_away output $LAPTOP_SCREEN
-workspace $workspace_music output $LAPTOP_SCREEN
+#workspace $workspace_web output $LAPTOP_SCREEN 
+#workspace $workspace_terminals output $LAPTOP_SCREEN
+#workspace $workspace_pycharm output $LAPTOP_SCREEN
+#workspace $workspace_spacemacs output $LAPTOP_SCREEN
+#workspace $workspace_git output $LAPTOP_SCREEN
+#workspace $workspace_testing output $LAPTOP_SCREEN
+#workspace $workspace_playing output $LAPTOP_SCREEN
+#workspace $workspace_away output $LAPTOP_SCREEN
+#workspace $workspace_music output $LAPTOP_SCREEN
 
+# Print screen takes a screenshot.
+# With shift, it takes one only of the given window.
+bindsym Print         exec --no-startup-id scrot
+bindsym Shift+Print   exec --no-startup-id scrot -u
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
