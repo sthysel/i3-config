@@ -15,7 +15,7 @@
 #
 
 # background
-# exec --no-startup-id xsetroot -solid "#002244"
+exec --no-startup-id xsetroot -solid "#002244"
 # exec --no-startup-id feh --bg-scale /path/to/image
 
 font pango:DejaVu Sans Mono, FontAwesome 12 
