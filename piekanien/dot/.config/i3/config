@@ -15,8 +15,8 @@
 #
 
 # background
-exec --no-startup-id xsetroot -solid "#002244"
-# exec --no-startup-id feh --bg-scale /path/to/image
+# exec --no-startup-id xsetroot -solid "#002244"
+exec --no-startup-id feh --bg-scale /home/thys/sthysel@gmail.com/images/wallpapers/current
 
 font pango:DejaVu Sans Mono, FontAwesome 12 
 
@@ -255,7 +255,6 @@ assign [class="Emacs"] $workspace_spacemacs
 assign [class="jetbrains-pycharm"] $workspace_pycharm
 
 exec google-chrome-stable
-exec emacs
 
 
 # vim:filetype=i3
