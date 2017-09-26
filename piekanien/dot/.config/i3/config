@@ -50,9 +50,6 @@ bindsym $mod+z move workspace to output right
 bindsym Control+$mod+l exec i3lock -d -c 111111
 bindsym Control+$mod+s exec sleep 5 && xset dpms force standby
 
-# multi-screens
-bindsym Control+$mod+b exec ~/dotfiles/i3/screenlayout/bhp26.sh
-bindsym Control+$mod+n exec ~/dotfiles/i3/screenlayout/normal.sh
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
@@ -181,29 +178,40 @@ bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exit
 bindsym $mod+Tab workspace next
 
+# multi-screens
+set $multi_monitor "Monitors: (b)hp (n)ormal"
+bindsym $mod+Shift+m mode $multi_monitor
+mode $multi_monitor {
+        bindsym b exec ~/dotfiles/i3/screenlayout/bhp26.sh
+        bindsym n exec ~/dotfiles/i3/screenlayout/normal.sh
+        # back to normal: Enter or Escape
+        bindsym Escape mode "default"
+}
+
 set $apps "Start apps: (c)hrome (e)macs (v)im (g)itkraken (j)etbrains" 
+bindsym $mod+a mode $apps
 mode $apps {
-        bindsym $mod+c exec google-chrome-stable
-        bindsym $mod+e exec emacs
-        bindsym $mod+v exec nvim
-        bindsym $mod+g exec gitkraken 
-        bindsym $mod+j exec jetbrains-toolbox
+        bindsym c exec google-chrome-stable
+        bindsym e exec emacs
+        bindsym v exec nvim
+        bindsym g exec gitkraken 
+        bindsym j exec jetbrains-toolbox
 
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
 }
-bindsym $mod+a mode $apps
 
 set $suspend "Suspend" 
+bindsym $mod+p mode $suspend
 mode $suspend {
         bindsym $mod+x exec pm-suspend
 
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
 }
-bindsym $mod+p mode $suspend
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -227,7 +235,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
 
 bar {
         status_command i3status -c ~/.config/i3/status
@@ -240,7 +247,7 @@ bindsym XF86Battery exec gnome-power-statistics
 
 # volume control
 exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ t'-5%'
 bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
 bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 
