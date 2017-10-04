@@ -248,7 +248,7 @@ bindsym XF86Battery exec gnome-power-statistics
 
 # volume control
 exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ t'-5%'
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
 bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
 bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 
@@ -259,10 +259,10 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 
 # Take a screenshot upon pressing $mod+x (select an area)
-bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+bindsym --release $mod+x exec --no-startup-id import ~/latest-screenshot.png
 
 # workspace setup
-# assign [class="Google-chrome"] $workspace_web
+assign [class="Google-chrome"] $workspace_web
 # assign [class="Emacs"] $workspace_spacemacs
 # assign [class="jetbrains-pycharm"] $workspace_pycharm
 
