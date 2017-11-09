@@ -1,14 +1,22 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# folly big box config
 
 set $mod Mod4
 
+exec --no-startup-id compton -b
+exec --no-startup-id gsd-xsettings
 exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id nm-applet
-exec --no-startup-id insync start
 exec --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-keyring-daemon
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id insync start
 exec --no-startup-id udisks-glue
+
+exec --no-startup-id volumeicon
+exec --no-startup-id indicator-sound-switcher
+
 
 # set startup volume
 exec --no-startup-id pactl set-sink-volume 0 '20%'
@@ -68,8 +76,6 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+x focus mode_toggle
 
-# focus the parent container
-bindsym $mod+a focus parent
 
 # scratchpad
 bindsym $mod+m move scratchpad
@@ -77,15 +83,15 @@ bindsym $mod+o scratchpad show
 
 # Name the workspaces
 # spiffy fonts from aur's font-awesome
-set $workspace_web "1: Web "
-set $workspace_terminals "2: Terminals "
-set $workspace_pycharm "3: Pycharm "
-set $workspace_spacemacs "4: Spacemacs "
+set $workspace_web "1:"
+set $workspace_terminals "2:"
+set $workspace_pycharm "3: "
+set $workspace_spacemacs "4: "
 set $workspace_git "5: "
-set $workspace_testing "6: Testing "
-set $workspace_playing "7: Playing "
-set $workspace_away "8: Away "
-set $workspace_music "9: Music "
+set $workspace_testing "6: "
+set $workspace_playing "7: "
+set $workspace_away "8: "
+set $workspace_music "9: "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace_web
@@ -140,8 +146,23 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
+
+
+set $apps "Start apps: (c)hrome (e)macs (v)im (g)itkraken (j)etbrains (x)mind" 
+bindsym $mod+a mode $apps
+mode $apps {
+        bindsym x exec ~/gdrive/bin/xmind/XMind_amd64/xmind.sh
+        bindsym c exec google-chrome-stable
+        bindsym e exec emacs
+        bindsym v exec nvim
+        bindsym g exec gitkraken 
+        bindsym j exec jetbrains-toolbox --disable-seccomp-filter-sandbox
+
+        # back to normal: Enter or Escape
+        bindsym Escape mode "default"
+}
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -153,7 +174,7 @@ bar {
 }
 
 # start the session
-exec --no-startup-id ~/.i3/autostart
+# exec --no-startup-id ~/.i3/autostart
 
 # workspace setup
 assign [class="Google-chrome"] $workspace_web
@@ -161,7 +182,7 @@ assign [class="Emacs"] $workspace_spacemacs
 assign [class="jetbrains-pycharm"] $workspace_pycharm
 
 exec google-chrome-stable
-exec emacs
+# exec emacs
 
 
 # vim:filetype=i3
