@@ -13,58 +13,99 @@
 # # To switch back:
 # # xrandr --output VGA1 --right-of LVDS1 --auto
 #
+
+
 set $font FontAwesome
-# background
-exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall.jpg
+# set $terminal i3-sensible-terminal
+set $terminal terminator
 
-#font pango:DejaVu Sans Mono, FontAwesome 12 
-font pango:$font 12 
+# i3-gaps
+for_window [class="^.*"] border pixel 0
+gaps inner 1 
+gaps outer 1 
 
-# eDP1  laptop
+# fonts
+# font pango:DejaVu Sans Mono, FontAwesome 12 
+font pango:$font 12
+
+# screens
 set $LAPTOP_SCREEN eDP-1
-
 set $mod Mod4
 
+# things that need to happen always
 exec --no-startup-id compton -b
+# DPMS monitor setting (standby -> suspend -> off) (seconds)
+exec --no-startup-id xset dpms 300 600 900 
+exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
+exec --no-startup-id volumeicon
 exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id insync start
-exec --no-startup-id udisks-glue
-
-exec --no-startup-id volumeicon
 exec --no-startup-id indicator-sound-switcher
-
 # UDisks front-end for managing removable media.
 exec --no-startup-id udiskie -ans
+exec --no-startup-id udisks-glue
+# remaps the caps lock button to escape and uses the US international keyboard with dead keys
+exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
+# Unclutter makes the mouse invisible after a brief period
+exec_always--no-startup-id unclutter
+exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall.jpg
 
+# things that need to run always
+exec --no-startup-id google-chrome-stable
+exec --no-startup-id emacs
 
-## DPMS monitor setting (standby -> suspend -> off) (seconds)
-exec --no-startup-id xset dpms 300 600 900 
+# Dropdown/Scratchpad windows
+# First I have a tmux window used for background scripts.
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 5
+# otherwise starts a new one (to prevent multiple dropdown sessions).
+exec --no-startup-id st -n tmux -f mono:pixelsize=24 -e tmux -q
+bindsym $mod+y [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 
+# R for math
+for_window [instance="math"] floating enable
+for_window [instance="math"] resize set 800 300
+for_window [instance="math"] move scratchpad
+for_window [instance="math"] border pixel 5
+exec --no-startup-id st -n math -f mono:pixelsize=24 -e R -q
+bindsym $mod+a [instance="math"] scratchpad show; [instance="math"] move position center
+
+# ipython
+for_window [instance="python"] floating enable
+for_window [instance="python"] resize set 800 600
+for_window [instance="python"] move scratchpad
+for_window [instance="python"] border pixel 5
+exec --no-startup-id st -n pyton -f mono:pixelsize=24 -e ipython -q
+bindsym $mod+p [instance="python"] scratchpad show; [instance="python"] move position center
+
+# gap control
+bindsym $mod+g gaps inner current plus 5
+bindsym $mod+Shift+g gaps inner current minus 5
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 bindsym $mod+z move workspace to output right
 
+# symbol bindings
 # lock screen
 bindsym Control+$mod+l exec i3lock -d -c 111111
 bindsym Control+$mod+s exec sleep 5 && xset dpms force standby
-
-
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec terminator
-
+bindsym $mod+Return exec $terminal
+bindsym $mod+Shift+Return exec $terminal -e tmux
 # kill focused window
 bindsym $mod+Shift+Q kill
-
-# start dmenu (a program launcher)
-# bindsym $mod+space exec dmenu_run
+# rofi
 bindsym $mod+space exec rofi -show run -opacity 85 -font "$font 14"
+# ranger
+bindsym $mod+r exec $terminal -e ranger
 
 # aliases for movement
 set $up k
@@ -116,11 +157,8 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+x focus mode_toggle
 
-# focus the parent container
-# bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+t split toggle
+bindsym $mod+Shift+t gaps inner current set 15; gaps outer current set 15
 
 # scratchpad
 bindsym $mod+m move scratchpad
@@ -141,6 +179,7 @@ set $workspace_away "8:"
 set $workspace_music "9:"
 
 # switch to workspace
+bindsym $mod+Escape workspace prev
 bindsym $mod+1 workspace $workspace_web
 bindsym $mod+2 workspace $workspace_terminals
 bindsym $mod+3 workspace $workspace_pycharm
@@ -165,8 +204,8 @@ bindsym $mod+Shift+9 move container to workspace $workspace_music
 
 # Print screen takes a screenshot.
 # With shift, it takes one only of the given window.
-bindsym Print         exec --no-startup-id scrot
-bindsym Shift+Print   exec --no-startup-id scrot -u
+bindsym Print exec --no-startup-id scrot
+bindsym Shift+Print exec --no-startup-id scrot -u
 
 # Take a screenshot upon pressing $mod+x (select an area)
 bindsym --release $mod+x exec --no-startup-id deepin-screenshot -s ~/screenshot/
@@ -187,7 +226,7 @@ mode $multi_monitor {
 }
 
 set $apps "Start apps: (c)hrome (e)macs (v)im (g)itkraken (j)etbrains (x)mind" 
-bindsym $mod+a mode $apps
+bindsym $mod+Shift+a mode $apps
 mode $apps {
         bindsym x exec ~/opt/xmind/XMind_amd64/xmind.sh
         bindsym c exec google-chrome-stable
@@ -200,20 +239,19 @@ mode $apps {
         bindsym Escape mode "default"
 }
 
-set $suspend "Suspend" 
-bindsym $mod+p mode $suspend
-mode $suspend {
-        bindsym $mod+x exec pm-suspend
 
+set $suspend "Business hours are over, baby: s: suspend" 
+bindsym $mod+q mode $suspend
+mode $suspend {
+        bindsym s exec pm-suspend
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
 }
 
+# These bindings trigger as soon as you enter the resize mode
 # resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
+bindsym $mod+v mode "resize"
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
@@ -221,7 +259,7 @@ mode "resize" {
         bindsym $down resize shrink width 10 px or 10 ppt
         bindsym $up resize grow height 10 px or 10 ppt
         bindsym $right resize shrink height 10 px or 10 ppt
-        bindsym  resize grow width 10 px or 10 ppt
+        bindsym $left resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -234,7 +272,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-
 bar {
         status_command i3status -c ~/.config/i3/status
         position top
@@ -243,9 +280,7 @@ bar {
 
 # show battery stats
 bindsym XF86Battery exec gnome-power-statistics
-
 # volume control
-exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
 bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
 bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
 bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -255,14 +290,11 @@ bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
 
-
-
 # workspace setup
-assign [class="Google-chrome"] $workspace_web
+# assign [class="Google-chrome"] $workspace_web
 # assign [class="Emacs"] $workspace_spacemacs
 # assign [class="jetbrains-pycharm"] $workspace_pycharm
 
-exec --no-startup-id google-chrome-stable
 
 
 # vim:filetype=i3
