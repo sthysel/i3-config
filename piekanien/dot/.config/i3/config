@@ -15,24 +15,27 @@
 #
 
 
-set $font FontAwesome
+set $font FontAwesome 12 
+
+# terminator until urxvt learns about true colors, as spacevim needs true colors.
+# set $terminal terminator --no-dbus
 # set $terminal i3-sensible-terminal
-set $terminal terminator
+set $terminal gnome-terminal
+# set $terminal alacritty
 
 # i3-gaps
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 1
 gaps inner 1 
 gaps outer 1 
 
 # fonts
-# font pango:DejaVu Sans Mono, FontAwesome 12 
-font pango:$font 12
+font pango:$font
 
 # screens
 set $LAPTOP_SCREEN eDP-1
 set $mod Mod4
 
-# things that need to happen always
+# things that need to always happen
 exec --no-startup-id compton -b
 # DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900 
@@ -51,7 +54,7 @@ exec --no-startup-id udisks-glue
 # remaps the caps lock button to escape and uses the US international keyboard with dead keys
 exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
 # Unclutter makes the mouse invisible after a brief period
-exec_always--no-startup-id unclutter
+# exec_always--no-startup-id unclutter
 exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall.jpg
 
 # things that need to run always
@@ -59,30 +62,13 @@ exec --no-startup-id google-chrome-stable
 exec --no-startup-id emacs
 
 # Dropdown/Scratchpad windows
-# First I have a tmux window used for background scripts.
-for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
-for_window [instance="dropdown"] move scratchpad
-for_window [instance="dropdown"] border pixel 5
-# otherwise starts a new one (to prevent multiple dropdown sessions).
-exec --no-startup-id st -n tmux -f mono:pixelsize=24 -e tmux -q
-bindsym $mod+y [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
-
-# R for math
-for_window [instance="math"] floating enable
-for_window [instance="math"] resize set 800 300
-for_window [instance="math"] move scratchpad
-for_window [instance="math"] border pixel 5
-exec --no-startup-id st -n math -f mono:pixelsize=24 -e R -q
-bindsym $mod+a [instance="math"] scratchpad show; [instance="math"] move position center
-
 # ipython
 for_window [instance="python"] floating enable
 for_window [instance="python"] resize set 800 600
 for_window [instance="python"] move scratchpad
 for_window [instance="python"] border pixel 5
-exec --no-startup-id st -n pyton -f mono:pixelsize=24 -e ipython -q
-bindsym $mod+p [instance="python"] scratchpad show; [instance="python"] move position center
+exec --no-startup-id terminator -n ipyton -f mono:pixelsize=24 -e ipython -q
+bindsym $mod+p [instance="python"] scratchpad show; [instance="ipython"] move position center
 
 # gap control
 bindsym $mod+g gaps inner current plus 5
@@ -103,9 +89,11 @@ bindsym $mod+Shift+Return exec $terminal -e tmux
 # kill focused window
 bindsym $mod+Shift+Q kill
 # rofi
-bindsym $mod+space exec rofi -show run -opacity 85 -font "$font 14"
+bindsym $mod+space exec rofi -show run -opacity 85 -font "FontAwesome 16"
+
 # ranger
-bindsym $mod+r exec $terminal -e ranger
+# use urxvt for ranger as it does not tear like terminator
+bindsym $mod+r exec urxvt -e ranger
 
 # aliases for movement
 set $up k
@@ -120,10 +108,10 @@ bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
 # focus window using arrows
-bindsym Mod1+Left focus left
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+$left move left
@@ -132,10 +120,10 @@ bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
 # move window using arrows
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
 bindsym $mod+equal split v 
@@ -158,7 +146,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+x focus mode_toggle
 
 bindsym $mod+t split toggle
-bindsym $mod+Shift+t gaps inner current set 15; gaps outer current set 15
+bindsym $mod+Shift+t gaps inner current set 5; gaps outer current set 5
 
 # scratchpad
 bindsym $mod+m move scratchpad
@@ -167,7 +155,6 @@ bindsym $mod+o scratchpad show
 workspace_auto_back_and_forth yes
 
 # Name the workspaces
-# spiffy fonts from aur's font-awesome
 set $workspace_web "1:"
 set $workspace_terminals "2:"
 set $workspace_pycharm "3:"
@@ -291,9 +278,8 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
 
 # workspace setup
-# assign [class="Google-chrome"] $workspace_web
-# assign [class="Emacs"] $workspace_spacemacs
-# assign [class="jetbrains-pycharm"] $workspace_pycharm
+#rassign [class="Google-chrome"] $workspace_web
+assign [class="Emacs"] $workspace_spacemacs
 
 
 
