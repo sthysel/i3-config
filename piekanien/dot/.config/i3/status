@@ -53,7 +53,7 @@ volume master {
 }
 
 wireless _first_ {
-        format_up = " %quality@%essid (%bitrate / %frequency) %ip "
+        format_up = " %quality %essid (%bitrate / %frequency) %ip "
         format_down = ""
 }
 

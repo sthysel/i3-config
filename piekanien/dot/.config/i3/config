@@ -58,8 +58,8 @@ exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option cap
 exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall.jpg
 
 # things that need to run always
-exec --no-startup-id google-chrome-stable
-exec --no-startup-id emacs
+# exec --no-startup-id google-chrome-stable
+# exec --no-startup-id emacs
 
 # Dropdown/Scratchpad windows
 # ipython
@@ -263,6 +263,7 @@ bar {
         status_command i3status -c ~/.config/i3/status
         position top
         modifier $mod
+        font pango:DejaVu Sans Mono, InconsolataForPowerline Nerd Font 13
 }
 
 # show battery stats
@@ -279,7 +280,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # workspace setup
 #rassign [class="Google-chrome"] $workspace_web
-assign [class="Emacs"] $workspace_spacemacs
+#assign [class="Emacs"] $workspace_spacemacs
 
 
 
