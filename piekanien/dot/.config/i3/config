@@ -195,7 +195,8 @@ bindsym Print exec --no-startup-id scrot
 bindsym Shift+Print exec --no-startup-id scrot -u
 
 # Take a screenshot upon pressing $mod+x (select an area)
-bindsym --release $mod+x exec --no-startup-id deepin-screenshot -s ~/screenshot/
+# bindsym --release $mod+x exec --no-startup-id deepin-screenshot -s ~/screenshot/
+bindsym --release $mod+x exec --no-startup-id flameshot gui
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
