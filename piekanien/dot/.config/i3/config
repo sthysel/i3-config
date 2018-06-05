@@ -213,12 +213,12 @@ mode $multi_monitor {
         bindsym Escape mode "default"
 }
 
-set $apps "Start apps: (c)hrome (e)macs (v)im (g)itkraken (j)etbrains (x)mind" 
+set $apps "Start apps: (c)hrome (e)macsclient (v)im (g)itkraken (j)etbrains (x)mind" 
 bindsym $mod+Shift+a mode $apps
 mode $apps {
         bindsym x exec ~/opt/xmind/XMind_amd64/xmind.sh
         bindsym c exec google-chrome-stable
-        bindsym e exec emacs
+        bindsym e exec emacsclient -c
         bindsym v exec nvim
         bindsym g exec gitkraken 
         bindsym j exec jetbrains-toolbox --disable-seccomp-filter-sandbox
