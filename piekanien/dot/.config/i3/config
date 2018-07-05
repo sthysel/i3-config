@@ -262,9 +262,11 @@ mode "resize" {
 
 bar {
         status_command i3status -c ~/.config/i3/status
+        # status_command i3blocks -c ~/.config/i3/blocks
+        # status_command i3blocks 
         position top
         modifier $mod
-        font pango:DejaVu Sans Mono, InconsolataForPowerline Nerd Font 13
+        font pango:DejaVu Sans Mono, InconsolataForPowerline Nerd Font 14
 }
 
 # show battery stats
