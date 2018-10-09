@@ -1,6 +1,6 @@
 # i3 config
 
-![](pics/shot.png)
+![Screenshot](pics/shot.png)
 
 This repo contains several i3 Window manager configs.
 
@@ -17,13 +17,22 @@ like so
 
 ```
 
-![](pics/bar.png)
+![Bar](pics/bar.png)
+
+
+# Tools
+
+```zsh
+# pacman -S pasystray
+```
+
+# Install
 
 ## stow install
 
 Choose to install i3 config for piekanien, drop into piekanien and do:
 
-```
+```zsh
 $ stow -t ${HOME} dot
 ```
 
@@ -33,7 +42,7 @@ $ stow -t ${HOME} dot
 Clone repo in ~ and depending on the machine the appropiate set is linked in `~/.config/i3` 
 like so:
 
-```
+```zsh
   ~/.config/i3 $ tree
 .
 ├── config -> /home/thys/i3-config/piekanien/config
@@ -42,4 +51,4 @@ like so:
 
 Sweet icons du jour on the bar:
 
-![](pics/workspace.png)
+![Bar Icons](pics/workspace.png)
