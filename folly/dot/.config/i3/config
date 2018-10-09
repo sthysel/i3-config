@@ -1,5 +1,6 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
 # folly big box config
 
 set $mod Mod4
@@ -11,11 +12,10 @@ exec --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id insync start
+#exec --no-startup-id insync start
 exec --no-startup-id udisks-glue
-
-exec --no-startup-id volumeicon
-exec /usr/bin/pasystray
+#exec --no-startup-id volumeicon
+exec --no-startup-id pasystray
 exec --no-startup-id indicator-sound-switcher
 
 
@@ -25,9 +25,13 @@ exec --no-startup-id pactl set-sink-volume 0 '20%'
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900
 
-# chose a FreeType font, such as:
+# $ fc-list | grep Awesome
+# good default:
 # font pango:DejaVu Sans Mono 10
-font pango: M+ 1m, FontAwesome, Ionicons, 14
+# with ttf-font-awesome-4:
+# font pango:DejaVu Sans Mono, FontAwesome 15
+# with ttf-font-awesome:
+font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 14
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
