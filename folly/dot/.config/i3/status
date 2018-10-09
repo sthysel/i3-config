@@ -1,6 +1,6 @@
 general {
   colors = true
-  interval = 4
+  interval = 5  
 }
 
 order += "disk /"
@@ -11,7 +11,7 @@ order += "time"
 order += "volume master"
 
 cpu_temperature 0 {
-  format = "CPU: %degrees °C"
+  format = "CPU %degrees °C"
   path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp2_input"
   max_threshold = 75
 }
@@ -19,13 +19,13 @@ cpu_temperature 0 {
 
 ethernet _first_ {
   # sudo setcap cap_net_admin=ep $(which i3status)
-  format_up = "E: %ip (%speed)"
+  format_up = "%ip (%speed)"
   format_down = "E: down"
 }
 
 
 time {
-  format = "%d.%m.%Y %H:%M"
+  format = "%Y.%m.%d %H:%M"
 }
 
 load {
@@ -41,7 +41,7 @@ disk "/home" {
 }
 
 volume master {
-  format = "♪: %volume"
+  format = "♪ %volume"
   device = "default"
   mixer = "Master"
   mixer_idx = 0
