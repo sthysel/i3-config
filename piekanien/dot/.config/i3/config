@@ -16,7 +16,13 @@
 
 # piekanien dell xps 13 config
 
-set $font FontAwesome 12 
+# $ fc-list | grep Awesome
+# good default:
+# font pango:DejaVu Sans Mono 10
+# with ttf-font-awesome-4:
+# font pango:DejaVu Sans Mono, FontAwesome 15
+# with ttf-font-awesome:
+font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 14
 
 # terminator until urxvt learns about true colors, as spacevim needs true colors.
 # set $terminal terminator --no-dbus
@@ -28,9 +34,6 @@ set $terminal gnome-terminal
 for_window [class="^.*"] border pixel 1
 gaps inner 1 
 gaps outer 1 
-
-# fonts
-font pango:$font
 
 # screens
 set $LAPTOP_SCREEN eDP-1
@@ -236,8 +239,6 @@ mode $suspend {
         bindsym Escape mode "default"
 }
 
-# These bindings trigger as soon as you enter the resize mode
-# resize window (you can also use the mouse for that)
 bindsym $mod+v mode "resize"
 mode "resize" {
         # Pressing left will shrink the window’s width.
@@ -261,13 +262,16 @@ mode "resize" {
 }
 
 bar {
-        status_command i3status -c ~/.config/i3/status
+        i3bar_command i3bar -t
+        status_command i3status -c ~/.config/i3/status 
         # status_command i3blocks -c ~/.config/i3/blocks
         # status_command i3blocks 
         position top
         modifier $mod
-        font pango:DejaVu Sans Mono, InconsolataForPowerline Nerd Font 14
+        font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 16
 }
+
+
 
 # show battery stats
 bindsym XF86Battery exec gnome-power-statistics
@@ -284,7 +288,5 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 # workspace setup
 #rassign [class="Google-chrome"] $workspace_web
 #assign [class="Emacs"] $workspace_spacemacs
-
-
 
 # vim:filetype=i3
