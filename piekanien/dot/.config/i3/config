@@ -22,13 +22,14 @@
 # with ttf-font-awesome-4:
 # font pango:DejaVu Sans Mono, FontAwesome 15
 # with ttf-font-awesome:
-font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 14
+font pango:FontAwesome5Free 14, FontAwesome5Brands 14, DejaVu Sans Mono
 
 # terminator until urxvt learns about true colors, as spacevim needs true colors.
 # set $terminal terminator --no-dbus
 # set $terminal i3-sensible-terminal
-set $terminal gnome-terminal
+# set $terminal gnome-terminal
 # set $terminal alacritty
+set $terminal kitty
 
 # i3-gaps
 for_window [class="^.*"] border pixel 1
@@ -59,7 +60,7 @@ exec --no-startup-id udisks-glue
 exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
 # Unclutter makes the mouse invisible after a brief period
 # exec_always--no-startup-id unclutter
-exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall.jpg
+exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall
 
 # things that need to run always
 # exec --no-startup-id google-chrome-stable
@@ -92,12 +93,15 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+Return exec $terminal -e tmux
 # kill focused window
 bindsym $mod+Shift+Q kill
+
 # rofi
 bindsym $mod+space exec rofi -show run -opacity 85 -font "FontAwesome 16"
+# bindsym $mod+h exec rofi -show ssh -opacity 85 -font "FontAwesome 16"
 
 # ranger
 # use urxvt for ranger as it does not tear like terminator
-bindsym $mod+r exec urxvt -e ranger
+# bindsym $mod+r exec urxvt -e ranger
+bindsym $mod+r exec kitty ranger
 
 # aliases for movement
 set $up k
@@ -208,11 +212,12 @@ bindsym $mod+Shift+e exit
 bindsym $mod+Tab workspace next
 
 # multi-screens
-set $multi_monitor "Monitors: (b)hp (n)ormal"
+set $multi_monitor "Monitors: (b)hp (n)ormal (h)ome"
 bindsym $mod+Shift+m mode $multi_monitor
 mode $multi_monitor {
         bindsym b exec ~/dotfiles/i3/screenlayout/bhp26.sh
         bindsym n exec ~/dotfiles/i3/screenlayout/normal.sh
+        bindsym h exec ~/dotfiles/i3/screenlayout/klipwerfxps.sh
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
 }
