@@ -10,13 +10,13 @@ signal=11
 
 [pacman]
 label=📦
-command=i3pacman
+command=~/dotfiles/scripts/statusbar/i3pacman
 interval=once
 signal=8
 
 
 [weather]
-command=i3weather
+command=~/dotfiles/scripts/statusbar/i3weather
 interval=3600
 
 [mail]
@@ -50,6 +50,5 @@ command=acpi | cut -d " " -f3-5 |  sed -e "s/,//g;s/Discharging/🔋/;s/Charging
 interval=5
 
 [time]
-label=📅
-command=echo $(date '+%Y %b %d %I:%M%p') 🕓
+command=echo $(date '+%Y %b %d %H:%M')
 interval=30<Paste>

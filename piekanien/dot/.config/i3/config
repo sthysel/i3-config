@@ -267,13 +267,13 @@ mode "resize" {
 }
 
 bar {
+        font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 16
+
         i3bar_command i3bar -t
-        status_command i3status -c ~/.config/i3/status 
-        # status_command i3blocks -c ~/.config/i3/blocks
-        # status_command i3blocks 
+        # status_command i3status -c ~/.config/i3/status 
+        status_command i3blocks -c ~/.config/i3/blocks
         position top
         modifier $mod
-        font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 16
 }
 
 
