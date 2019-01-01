@@ -36,8 +36,6 @@ for_window [class="^.*"] border pixel 1
 gaps inner 1 
 gaps outer 1 
 
-# screens
-set $LAPTOP_SCREEN eDP-1
 set $mod Mod4
 
 # things that need to always happen
