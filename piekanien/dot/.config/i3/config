@@ -82,6 +82,7 @@ bindsym $mod+Shift+g gaps inner current minus 5
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# just flick workspaces between monitors, rotating right
 bindsym $mod+z move workspace to output right
 
 # symbol bindings
