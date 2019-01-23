@@ -1,5 +1,4 @@
 # vim:filetype=i3
-# See `http://i3wm.org/docs/userguide.html for a complete reference
 
 # To give a presentation do:
 # # xrandr (and determine active outputs and resolutions)
@@ -24,19 +23,24 @@
 # with ttf-font-awesome:
 font pango:FontAwesome5Free 14, FontAwesome5Brands 14, DejaVu Sans Mono
 
-# terminator until urxvt learns about true colors, as spacevim needs true colors.
-# set $terminal terminator --no-dbus
-# set $terminal i3-sensible-terminal
-# set $terminal gnome-terminal
-# set $terminal alacritty
-set $terminal kitty
-
 # i3-gaps
 for_window [class="^.*"] border pixel 1
 gaps inner 1 
 gaps outer 1 
 
 set $mod Mod4
+set $terminal kitty
+set $shutdown sudo -A shutdown -h now
+set $reboot sudo -A reboot
+set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
+set $hibernate sudo -A systemctl suspend
+
+# Touchpad config
+set $touchpad DLL0704:01 06CB:76AE Touchpad
+exec --no-startup-id xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "$touchpad" "libinput Natural Scrolling Enabled" 1
+exec --no-startup-id xinput set-prop "$touchpad" "libinput Disable While Typing Enabled" 0
+exec --no-startup-id xinput set-prop "$touchpad" "libinput Accel Speed" 1
 
 # things that need to always happen
 exec --no-startup-id compton -b
@@ -44,9 +48,6 @@ exec --no-startup-id compton -b
 exec --no-startup-id xset dpms 300 600 900 
 exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
 exec --no-startup-id volumeicon
-exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id gnome-power-manager
-exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id insync start
@@ -60,30 +61,27 @@ exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option cap
 # exec_always--no-startup-id unclutter
 exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall
 
-# things that need to run always
-# exec --no-startup-id google-chrome-stable
-# exec --no-startup-id emacs
 
 # Dropdown/Scratchpad windows
-# ipython
-for_window [instance="python"] floating enable
-for_window [instance="python"] resize set 800 600
-for_window [instance="python"] move scratchpad
-for_window [instance="python"] border pixel 5
-exec --no-startup-id terminator -n ipyton -f mono:pixelsize=24 -e ipython -q
-bindsym $mod+p [instance="python"] scratchpad show; [instance="ipython"] move position center
+# General dropdown window traits. The order can matter.
+for_window [instance="dropdown_*"] floating enable
+for_window [instance="dropdown_*"] move scratchpad
+for_window [instance="dropdown_*"] sticky enable
+for_window [instance="dropdown_*"] scratchpad show
+for_window [instance="dropdown_tmuxdd"] resize set 625 450
+for_window [instance="dropdown_dropdowncalc"] resize set 800 300
+for_window [instance="dropdown_tmuxdd"] border pixel 3
+for_window [instance="dropdown_dropdowncalc"] border pixel 2
+for_window [instance="dropdown_*"] move position center
 
+# All the key bindings
 # gap control
 bindsym $mod+g gaps inner current plus 5
 bindsym $mod+Shift+g gaps inner current minus 5
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
 # just flick workspaces between monitors, rotating right
 bindsym $mod+z move workspace to output right
-
-# symbol bindings
 # lock screen
 bindsym Control+$mod+l exec i3lock -d -c 111111
 bindsym Control+$mod+s exec sleep 5 && xset dpms force standby
