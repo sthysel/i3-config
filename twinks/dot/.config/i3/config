@@ -215,12 +215,11 @@ bindsym $mod+Shift+e exit
 bindsym $mod+Tab workspace next
 
 # multi-screens
-set $multi_monitor "Monitors: (b)hp (n)ormal (h)ome"
+set $multi_monitor "Monitors: welsh(p)ool (b)rook (n)ormal"
 bindsym $mod+Shift+m mode $multi_monitor
 mode $multi_monitor {
-        bindsym b exec ~/dotfiles/i3/screenlayout/bhp26.sh
-        bindsym n exec ~/dotfiles/i3/screenlayout/normal.sh
-        bindsym h exec ~/dotfiles/i3/screenlayout/klipwerfxps.sh
+        bindsym p exec ~/dotfiles/i3/screenlayout/pool.sh
+        bindsym b exec ~/dotfiles/i3/screenlayout/brook.sh
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
 }
