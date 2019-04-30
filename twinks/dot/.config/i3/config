@@ -14,6 +14,8 @@
 # # xrandr --output VGA1 --right-of LVDS1 --auto
 #
 
+exec --no-starup-id xrandr --dpi 220
+
 # fonts
 # $ fc-list | grep Awesome
 # good default:
@@ -95,7 +97,8 @@ bindsym $mod+Shift+Return exec $terminal -e tmux
 bindsym $mod+Shift+Q kill
 
 # rofi
-bindsym $mod+space exec rofi -show run -opacity 85 -font "FontAwesome 16"
+# bindsym $mod+space exec rofi -show run -opacity 85 -font "FontAwesome 16"
+bindsym $mod+space exec rofi -show
 # bindsym $mod+h exec rofi -show ssh -opacity 85 -font "FontAwesome 16"
 
 # ranger
@@ -202,7 +205,9 @@ bindsym Shift+Print exec --no-startup-id scrot -u
 
 # Take a screenshot upon pressing $mod+x (select an area)
 # bindsym --release $mod+x exec --no-startup-id deepin-screenshot -s ~/screenshot/
+# bindsym --release $mod+x exec --no-startup-id  dbus-launch flameshot gui
 bindsym --release $mod+x exec --no-startup-id flameshot gui
+
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
